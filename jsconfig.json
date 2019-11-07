@@ -2,11 +2,8 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-<<<<<<< HEAD
       "~/*": ["*"]
-=======
-      "~/*": ["*"],
->>>>>>> 1c02df0a41da64356d7da9f965522bdb4e1728e9
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }

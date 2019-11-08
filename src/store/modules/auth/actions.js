@@ -13,7 +13,8 @@ export function signInSuccess(token, user) {
 }
 
 export function signFailure() {
+  console.log('error');
   return {
-    type: '@auth/SIGN_FAILURE',
+    type: '@auth/SIGN_IN_FAILURE',
   };
 }

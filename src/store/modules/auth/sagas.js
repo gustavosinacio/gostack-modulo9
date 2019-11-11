@@ -4,8 +4,10 @@ import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSuccess, signUpSucess, signUpFailure } from './actions';
+import { signInSuccess, signUpSucess, signInFailure } from './actions';
 
+// -----------------------------------------------------------------------------
+const routeRedirect = '/dashboard';
 // -----------------------------------------------------------------------------
 export function* signIn({ payload }) {
   try {
@@ -20,28 +22,25 @@ export function* signIn({ payload }) {
 
     if (!user.provider) {
       toast.error('Este usuário não é um prestador.');
-      yield put(signFailure());
+      yield put(signInFailure());
 
       return;
     }
 
     yield put(signInSuccess(token, user));
 
-    history.push('/dashboard');
+    history.push(routeRedirect);
   } catch (err) {
     toast.error(
       'Falha na autenticação. Verifique seus dados e tente novamente.'
     );
-    console.log(err.response);
-    yield put(signFailure());
   }
 }
 // -----------------------------------------------------------------------------
-
 export function* signUp({ payload }) {
-  const { name, email, password } = payload;
-
   try {
+    const { name, email, password } = payload;
+
     const response = yield call(api.post, 'users', {
       name,
       email,
@@ -51,15 +50,17 @@ export function* signUp({ payload }) {
 
     const { name: newName, email: newEmail } = response.data;
 
-    // toast.success('Provedor cadastrado com sucesso');
+    toast.success('Cadastro realizado com sucesso!');
 
     yield put(signUpSucess(newName, newEmail));
 
-    history.push('/dashboard');
+    history.push(routeRedirect);
   } catch (err) {
-    yield put(signUpFailure());
+    toast.error(err.response.data.error);
+    console.tron.log(err.response.data.error);
   }
 }
+// -----------------------------------------------------------------------------
 
 export default all([
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),

@@ -31,9 +31,3 @@ export function signUpSucess(name, email) {
     payload: { name, email },
   };
 }
-
-export function signUpFailure() {
-  return {
-    type: '@auth/SIGN_UP_FAILURE',
-  };
-}

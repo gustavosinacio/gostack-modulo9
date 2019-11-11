@@ -5,8 +5,8 @@ const accentColor = '#666666';
 // const backgroundMain = '#ff6347';
 // const backgroundSecond = '#ff3938';
 
-// const backgroundMain = '#f74';
-// const backgroundSecond = '#f10';
+// const backgroundMain = '#666';
+// const backgroundSecond = '#111';
 
 const backgroundMain = '#f70';
 const backgroundSecond = '#f32';

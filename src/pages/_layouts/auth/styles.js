@@ -8,8 +8,11 @@ const accentColor = '#666666';
 // const backgroundMain = '#666';
 // const backgroundSecond = '#111';
 
-const backgroundMain = '#f70';
-const backgroundSecond = '#f32';
+// const backgroundMain = '#f70';
+// const backgroundSecond = '#f32';
+
+const backgroundMain = '#f3de29';
+const backgroundSecond = '#ffac0d';
 
 export const Wrapper = styled.div`
   height: 100%;

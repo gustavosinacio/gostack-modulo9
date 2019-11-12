@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSuccess, signUpSucess, signInFailure } from './actions';
+import { signInSuccess, signUpSucess, signFailure } from './actions';
 
 // -----------------------------------------------------------------------------
 const routeRedirect = '/dashboard';
@@ -22,7 +22,7 @@ export function* signIn({ payload }) {
 
     if (!user.provider) {
       toast.error('Este usuário não é um prestador.');
-      yield put(signInFailure());
+      yield put(signFailure());
 
       return;
     }
@@ -34,6 +34,9 @@ export function* signIn({ payload }) {
     toast.error(
       'Falha na autenticação. Verifique seus dados e tente novamente.'
     );
+    console.tron.log(err.response.data.error);
+
+    yield put(signFailure());
   }
 }
 // -----------------------------------------------------------------------------
@@ -56,12 +59,17 @@ export function* signUp({ payload }) {
 
     history.push(routeRedirect);
   } catch (err) {
-    toast.error(err.response.data.error);
-    console.tron.log(err.response.data.error);
+    if (err.response && err.response.data && err.response.data.error) {
+      toast.error(err.response.data.error);
+      console.tron.log(err.response.data.error);
+    } else {
+      toast.error('Falha ao criar cadastro. Verifique seus dados.');
+      console.tron.log(err);
+    }
+    yield put(signFailure());
   }
 }
 // -----------------------------------------------------------------------------
-
 export default all([
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),

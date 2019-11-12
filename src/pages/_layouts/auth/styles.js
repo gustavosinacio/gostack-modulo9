@@ -1,22 +1,11 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-const accentColor = '#666666';
-// const backgroundMain = '#ff6347';
-// const backgroundSecond = '#ff3938';
-
-// const backgroundMain = '#666';
-// const backgroundSecond = '#111';
-
-// const backgroundMain = '#f70';
-// const backgroundSecond = '#f32';
-
-const backgroundMain = '#f3de29';
-const backgroundSecond = '#ffac0d';
+import { background, accentColor } from '~/assets/colors';
 
 export const Wrapper = styled.div`
   height: 100%;
-  background: linear-gradient(135deg, ${backgroundMain}, ${backgroundSecond});
+  background: ${background};
   display: flex;
   flex-direction: column;
   justify-content: center;

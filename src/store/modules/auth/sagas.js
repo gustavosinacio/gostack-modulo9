@@ -27,6 +27,8 @@ export function* signIn({ payload }) {
       return;
     }
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     yield put(signInSuccess(token, user));
 
     history.push(routeRedirect);
@@ -70,7 +72,18 @@ export function* signUp({ payload }) {
   }
 }
 // -----------------------------------------------------------------------------
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) api.defaults.headers.Authorization = `Bearer ${token}`;
+
+  console.tron.log(api.defaults.headers.Authorization);
+}
+// -----------------------------------------------------------------------------
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
 ]);

@@ -19,7 +19,7 @@ export const Content = styled.div`
 
     img {
       margin-right: 20px;
-      padding-right: 20px;
+      padding-right: 30px;
       border-right: 1px solid #eee;
     }
 

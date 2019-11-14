@@ -31,3 +31,9 @@ export function signUpSucess(name, email) {
     payload: { name, email },
   };
 }
+
+export function logout() {
+  return {
+    type: '@auth/LOGOUT',
+  };
+}

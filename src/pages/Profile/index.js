@@ -2,9 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 
-import history from '~/services/history';
+import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
-import { logout } from '~/store/modules/auth/actions';
 
 import AvatarInput from './AvatarInput';
 import { Container } from './styles';
@@ -18,9 +17,8 @@ export default function Profile() {
     dispatch(updateProfileRequest(data));
   }
 
-  function handleLogout() {
-    history.push('/dashboard');
-    dispatch(logout());
+  function handleSignOut() {
+    dispatch(signOut());
   }
 
   return (
@@ -42,7 +40,7 @@ export default function Profile() {
 
         <button type="submit">Atualizar perfil</button>
       </Form>
-      <button type="button" onClick={handleLogout}>
+      <button type="button" onClick={handleSignOut}>
         Sair do GoBarber
       </button>
     </Container>

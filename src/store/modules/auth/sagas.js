@@ -7,8 +7,6 @@ import api from '~/services/api';
 import { signInSuccess, signUpSucess, signFailure } from './actions';
 
 // -----------------------------------------------------------------------------
-const routeRedirect = '/dashboard';
-// -----------------------------------------------------------------------------
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
@@ -31,7 +29,7 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
 
-    history.push(routeRedirect);
+    history.push('/dashboard');
   } catch (err) {
     toast.error(
       'Falha na autenticação. Verifique seus dados e tente novamente.'
@@ -59,7 +57,7 @@ export function* signUp({ payload }) {
 
     yield put(signUpSucess(newName, newEmail));
 
-    history.push(routeRedirect);
+    history.push('/dashboard');
   } catch (err) {
     if (err.response && err.response.data && err.response.data.error) {
       toast.error(err.response.data.error);
@@ -82,8 +80,13 @@ export function setToken({ payload }) {
   console.tron.log(api.defaults.headers.Authorization);
 }
 // -----------------------------------------------------------------------------
+export function signOut() {
+  history.push('/');
+}
+// -----------------------------------------------------------------------------
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);

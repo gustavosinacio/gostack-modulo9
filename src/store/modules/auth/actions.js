@@ -32,8 +32,8 @@ export function signUpSucess(name, email) {
   };
 }
 
-export function logout() {
+export function signOut() {
   return {
-    type: '@auth/LOGOUT',
+    type: '@auth/SIGN_OUT',
   };
 }

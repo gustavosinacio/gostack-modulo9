@@ -7,7 +7,6 @@ import {
   setMinutes,
   setSeconds,
   isBefore,
-  isEqual,
 } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
@@ -16,7 +15,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { Container, Time } from './styles';
 import api from '~/services/api';
 
-const timeRange = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+const timeRange = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
 export default function Dashboard() {
   const [schedule, setSchedule] = useState([]);
@@ -38,15 +37,11 @@ export default function Dashboard() {
         const checkDate = setSeconds(setMinutes(setHours(date, hour), 0), 0);
         const compareDate = Date.parse(utcToZonedTime(checkDate, timezone));
 
-        // console.log(compareDate);
-        // console.log(Date.parse(response.data[1].date));
-        // console.log(isEqual(compareDate, Date.parse(response.data[1].date)));
-
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
-          appointment: response.data.find(a =>
-            isEqual(Date.parse(a.date), compareDate)
+          appointment: response.data.find(
+            a => Date.parse(a.date) === compareDate
           ),
         };
       });
@@ -67,7 +62,7 @@ export default function Dashboard() {
 
   return (
     <Container>
-      <header onClick={() => console.log(schedule)}>
+      <header>
         <button type="button" onClick={handlePrevDay}>
           <MdChevronLeft size={36} color="#fff" />
         </button>

@@ -1,3 +1,5 @@
+import { darken } from 'polished';
+
 // export const backgroundMain = '#ff6347';
 // export const backgroundSecond = '#ff3938';
 
@@ -11,7 +13,7 @@
 // export const backgroundSecond = '#fa0';
 
 export const backgroundMain = '#68d';
-export const backgroundSecond = '#122';
+export const backgroundSecond = darken(0.3, backgroundMain);
 
 export const accentColor = '#38f';
 
